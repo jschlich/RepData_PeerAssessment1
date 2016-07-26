@@ -1,0 +1,44 @@
+---
+title: "Reproducible Research - Assessment 1"
+author: "JSS"
+date: "July 25, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Goals for This Assignment
+1. Load and preprocess the data
+2. Make a histogram of the total number of steps taken each day and calculate and report the mean and median of the total number of steps taken per day
+3. Make a time series plot to determin Which 5-minute interval, on average across all the days, contains the maximum number of steps
+4. Calculate and report the total number of missing values in the dataset. Devise a strategy for filling in all of the missing values in the dataset.
+5. Create a new dataset with the missing data filled in. Make a histogram of the total number of steps taken each day and Calculate and report the mean and     median total number of steps taken per day.
+6. Look for pattern differences in weekends vs weekdays.
+
+## Step 1: Load and preprocess the data
+```{r
+#Create data frame = df
+df <- read.table("activity.csv",
+                header=TRUE,
+                sep=",",
+                stringsAsFactors = FALSE,
+                colClasses = c("numeric","Date","numeric")}
+
+```
+## Step 2A - Make a histogram 
+```{r 
+TotalStepsByDay <- aggregate(df$steps,list(date=df$date),sum,na.rm=TRUE)
+        xAxisBreakdown = seq(from=0,to=25000,by=2000) 
+        hist(TotalStepsByDay$x,
+         breaks = xAxisBreakdown,
+         main="Frequency of Total Steps per Day",
+                col="blue",
+                xlab="Steps",
+                ylab="Days",
+                xaxt="n")
+        axis(side=1,at=xAxisBreakdown,labels=xAxisBreakdown)}
+
+```
+
